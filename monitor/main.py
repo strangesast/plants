@@ -73,4 +73,4 @@ def read_port(port):
 for address in ports:
     with serial.Serial(address, 9600) as ser:
         for picname in plot(read_port(ser)):
-            subprocess.call(['fbi', '-T', '1', '-a', '-d', '/dev/fb0', picname])
+            subprocess.call(['fbi', '-T', '1', '-a', '-d', '/dev/fb0', '-noverbose', '-cachemem', '0', picname])
