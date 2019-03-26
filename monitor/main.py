@@ -5,6 +5,7 @@ import matplotlib as mpl
 import numpy as np
 mpl.use('Agg')
 from matplotlib import pyplot as plt
+import subprocess
 
 
 def plot(gen):
@@ -33,9 +34,9 @@ def plot(gen):
     
         last.append((thistime, (temp, hum)))
     
-        last = last[-10:]
+        last = last[-600:]
     
-        if thistime > lasttime + 10 or len(last) < 10:
+        if thistime > lasttime + 60 or len(last) < 10:
             times, data = zip(*last)
             a = [d[0] for d in data]
             b = [d[1] for d in data]
@@ -72,4 +73,4 @@ def read_port(port):
 for address in ports:
     with serial.Serial(address, 9600) as ser:
         for picname in plot(read_port(ser)):
-            subprocess.call(['fbi', '-a', picname])
+            subprocess.call(['fbi', '-T', '1', '-a', '-d', '/dev/fb0', picname])
