@@ -59,7 +59,6 @@ def plot(gen):
 
 
 plt.savefig('test.png')
-
 ports = glob.glob('/dev/tty[A-Za-z]*')
 
 
